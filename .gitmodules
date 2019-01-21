@@ -1,0 +1,3 @@
+[submodule "Applications/Lua/alien"]
+	path = Applications/Lua/alien
+	url = https://github.com/mascarenhas/alien.git

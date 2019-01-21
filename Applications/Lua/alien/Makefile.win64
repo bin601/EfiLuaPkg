@@ -2,7 +2,7 @@
 LUA_LIBDIR=c:\usr\local\lib\lua
 LUA_DIR=c:\usr\local\share\lua\5.1
 BIN_DIR=c:\usr\local\bin
-CFLAGS=/O2 /DWINDOWS /D_WIN64 /Ic:\usr\local\include
+CFLAGS=/O2 /DWINDOWS /D_WIN64 /ID:\Git\edk2\StdLib\Include /ID:\Git\EfiLuaPkg\Applications\Lua\libffi_msvc
 LIB_OPTION="c:\usr\local\bin\lua5.1.lib"
 PREFIX=c:\usr\local
 

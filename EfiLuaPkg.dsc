@@ -83,6 +83,8 @@
 
   CacheMaintenanceLib|MdePkg/Library/BaseCacheMaintenanceLib/BaseCacheMaintenanceLib.inf
 
+  AlienLib|EfiLuaPkg/Applications/Lua/AlienLib.inf
+  LuaLib|EfiLuaPkg/Applications/Lua/LuaLib.inf
 ###################################################################################################
 #
 # Components Section - list of the modules and components that will be processed by compilation
@@ -131,7 +133,10 @@
 # AppPkg/Applications/Python/Python-2.7.10/Python2710.inf
 
 #### Un-comment the following line to build Lua.
-  EfiLuaPkg/Applications/Lua/Lua.inf
+  EfiLuaPkg/Applications/Lua/Lua.inf {
+	<LibraryClasses>
+	  NULL|EfiLuaPkg/Applications/Lua/AlienLib.inf
+  }
 
 
 ##############################################################################

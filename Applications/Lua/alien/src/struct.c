@@ -7,8 +7,8 @@
 
 #define LUA_COMPAT_ALL
 
-#include "lua.h"
-#include "lauxlib.h"
+#include "Lua/lua.h"
+#include "Lua/lauxlib.h"
 
 /*
 ** {======================================================

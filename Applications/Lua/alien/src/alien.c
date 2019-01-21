@@ -4,7 +4,7 @@
 
 #include "config.h"
 
-#ifdef WIN32  
+#ifdef WIN32
 # ifndef WINDOWS
 #  define WINDOWS
 # endif
@@ -12,7 +12,9 @@
 
 #ifdef WINDOWS
 #define _CRT_SECURE_NO_DEPRECATE 1
+#if !defined(UEFI_C_SOURCE)
 #include <windows.h>
+#endif
 #endif
 
 #include <stdio.h>
@@ -62,9 +64,9 @@
 #define MYNAME          "alien"
 #define MYVERSION       MYNAME " library for " LUA_VERSION " / " VERSION
 
-#include "lua.h"
-#include "lualib.h"
-#include "lauxlib.h"
+#include "Lua/lua.h"
+#include "Lua/lualib.h"
+#include "Lua/lauxlib.h"
 
 /* Lua 5.1 compatibility for Lua 5.3 */
 #if LUA_VERSION_NUM == 503
@@ -109,8 +111,10 @@ static void *luaL_testudata(lua_State *L, int ud, const char *tname) {
 #elif defined _AIX
 # define alloca __alloca
 #elif defined _MSC_VER
+#if !defined(UEFI_C_SOURCE)
 # include <malloc.h>
 # define alloca _alloca
+#endif
 #else
 # error "cannot find alloca"
 #endif
@@ -290,7 +294,7 @@ static void *alien_loadfunc (lua_State *L, void *lib, const char *sym) {
 #elif defined(WINDOWS)
 
 #define PLATFORM "windows"
-
+#if !defined(UEFI_C_SOURCE)
 static void pusherror (lua_State *L) {
   int error = GetLastError();
   char buffer[128];
@@ -321,7 +325,7 @@ static void *alien_loadfunc (lua_State *L, void *lib, const char *sym) {
   if (f == NULL) pusherror(L);
   return f;
 }
-
+#endif
 #else
 
 #define DLMSG   "dynamic libraries not enabled; check your Lua installation"
@@ -386,7 +390,7 @@ static void *alien_checknonnull(lua_State *L, int index) {
   }
   return p;
 }
-
+#if !defined(UEFI_C_SOURCE)
 static int alien_load(lua_State *L) {
   size_t len;
   void *aud, *lib;
@@ -410,6 +414,7 @@ static int alien_load(lua_State *L) {
   al->name = name;
   return 1;
 }
+#endif
 
 static int alien_makefunction(lua_State *L, void *lib, void *fn, char *name) {
   alien_Function *af = (alien_Function *)lua_newuserdata(L, sizeof(alien_Function));
@@ -428,6 +433,7 @@ static int alien_makefunction(lua_State *L, void *lib, void *fn, char *name) {
   return 1;
 }
 
+#if !defined(UEFI_C_SOURCE)
 static int alien_library_get(lua_State *L) {
   char *name;
   int cache;
@@ -458,6 +464,7 @@ static int alien_library_get(lua_State *L) {
   lua_setfield(L, cache, funcname);
   return 1;
 }
+#endif
 
 static int alien_function_new(lua_State *L) {
   void *fn = lua_touserdata(L, 1);
@@ -1181,7 +1188,9 @@ static int alien_memset(lua_State *L) {
 
 
 static const luaL_Reg alienlib[] = {
+#if !defined(UEFI_C_SOURCE)
   {"load", alien_load},
+#endif
   {"align", alien_align},
   {"tag", alien_register},
   {"wrap", alien_wrap},
@@ -1239,9 +1248,11 @@ int luaopen_alien_c(lua_State *L) {
   lua_pushliteral(L, "__tostring");
   lua_pushcfunction(L, alien_library_tostring);
   lua_settable(L, -3);
+#if !defined(UEFI_C_SOURCE)
   lua_pushliteral(L, "__index");
   lua_pushcfunction(L, alien_library_get);
   lua_settable(L, -3);
+#endif
   lua_pop(L, 1);
 
   /* Function metatable */
