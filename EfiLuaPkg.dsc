@@ -131,7 +131,7 @@
 # AppPkg/Applications/Python/Python-2.7.10/Python2710.inf
 
 #### Un-comment the following line to build Lua.
-  AppPkg/Applications/Lua/Lua.inf
+  EfiLuaPkg/Applications/Lua/Lua.inf
 
 
 ##############################################################################
