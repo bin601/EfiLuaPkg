@@ -131,7 +131,11 @@
 # AppPkg/Applications/Python/Python-2.7.10/Python2710.inf
 
 #### Un-comment the following line to build Lua.
-  EfiLuaPkg/Applications/Lua/Lua.inf
+  EfiLuaPkg/Applications/Lua/Lua.inf {
+
+  }
+
+
 
 
 ##############################################################################
@@ -139,7 +143,7 @@
 # Specify whether we are running in an emulation environment, or not.
 # Define EMULATE if we are, else keep the DEFINE commented out.
 #
-# DEFINE  EMULATE = 1
+DEFINE  EMULATE = 1
 
 ##############################################################################
 #
@@ -148,3 +152,12 @@
 ##############################################################################
 !include StdLib/StdLib.inc
 #!include AppPkg/Applications/Sockets/Sockets.inc
+
+[LibraryClasses.Common.UEFI_APPLICATION]
+  LuaLib|EfiLuaPkg/Applications/Lua/LuaLib.inf
+
+[BuildOptions]
+  DEBUG_*_*_CC_FLAGS = /Od
+  DEBUG_*_*_DLINK_FLAGS =  /EXPORT:InitializeDriver=$(IMAGE_ENTRY_POINT) /BASE:0x10000 /ALIGN:4096 /FILEALIGN:4096 /SUBSYSTEM:CONSOLE
+  RELEASE_*_*_DLINK_FLAGS = /ALIGN:4096 /FILEALIGN:4096
+

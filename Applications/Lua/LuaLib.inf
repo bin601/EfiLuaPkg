@@ -31,6 +31,12 @@
   LIBRARY_CLASS     = LuaLib
 
 [Sources]
+  # luaffi
+  luaffi/call.c
+  luaffi/ctype.c
+  luaffi/ffi.c
+  luaffi/parser.c
+
   src/lapi.c
   src/lauxlib.c
   src/lbaselib.c
@@ -69,4 +75,8 @@
   MdePkg/MdePkg.dec
 
 [BuildOptions]
-    MSFT:*_*_*_CC_FLAGS   = /Oi- /wd4702
+   *_*_IA32_CC_FLAGS  =           /Od /wd4018 /wd4054 /wd4055 /wd4101 /wd4131 /wd4152 /wd4204 /wd4210 /wd4244 /wd4267 /wd4305 /wd4310 /wd4389 /wd4701 /wd4702 /wd4706 /wd4716 /wd4334 /wd4189 /wd4029
+   *_*_X64_CC_FLAGS   = /D _WIN64 /Od /wd4018 /wd4054 /wd4055 /wd4101 /wd4131 /wd4152 /wd4204 /wd4210 /wd4244 /wd4267 /wd4305 /wd4310 /wd4389 /wd4701 /wd4702 /wd4706 /wd4716 /wd4334 /wd4189 /wd4029
+   *_*_*_DLINK_FLAGS = /OPT:REF
+
+

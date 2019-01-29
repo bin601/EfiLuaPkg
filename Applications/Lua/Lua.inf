@@ -33,7 +33,11 @@
   ENTRY_POINT    = ShellCEntryLib
 
 [Sources]
-  ./src/lua.c
+#  ./src/lua.c
+  Efi/main.c
+  Efi/readline.c
+  Efi/edk2module.c
+  src/lua.h
 
 [Packages]
   StdLib/StdLib.dec
@@ -52,3 +56,6 @@
   UefiLib
   ShellCEntryLib
   LuaLib
+
+[BuildOptions]
+  *_*_X64_CC_FLAGS = /D _WIN64
